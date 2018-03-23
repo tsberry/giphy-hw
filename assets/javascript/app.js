@@ -19,10 +19,16 @@ function buttons() {
 function getImages(response) {
     for(var i = 0; i < response.data.length; i++) {
         var imgUrl = response.data[i].images.fixed_height_still.url;
+        var animate = response.data[i].images.fixed_height.url;
         var imgDisplay = $(`<div class="display">`);
         var rating = response.data[i].rating;
         imgDisplay.append(`<div>Rating: "${rating}"</div>`);
-        imgDisplay.append(`<img src = "${imgUrl}">`);
+        var image = $("<img>");
+        image.attr("src",imgUrl);
+        image.data("still",imgUrl);
+        image.data("animate",animate);
+        image.data("state","still");
+        imgDisplay.append(image);
         $(".images").append(imgDisplay);
     }
 
@@ -55,17 +61,16 @@ $("body").on("click", "#add-button", function () {
 });
 
 $("body").on("click", "img", function() {
-    if(!$(this).hasClass("animated")) {
-        var url = $(this).attr("src");
-        url = url.substring(0, url.length-6) + ".gif";
-        $(this).attr("src",url);
-        $(this).addClass("animated");
+    var state = $(this).data("state");
+    if(state === "still") {
+        var animate = $(this).data("animate");
+        $(this).attr("src",animate);
+        $(this).data("state","animate");;
     }
-    else {
-        var url = $(this).attr("src");
-        url = url.substring(0, url.length-4) + "_s.gif";
-        $(this).attr("src",url);
-        $(this).removeClass("animated");
+    else if(state === "animate") {
+        var still = $(this).data("still");
+        $(this).attr("src",still);
+        $(this).data("state","still");
     }
 });
 
