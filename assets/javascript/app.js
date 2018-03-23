@@ -1,6 +1,6 @@
 var topics = ["Serval", "Hippo", "Asian Small-clawed Otter", "Jaguar", "Crested Ibis", "Alpaca", "Raccoon", "Fennec Fox", "American Beaver", "Prairie Dog", "Lion", "Moose", "Shoebill", "Northern White-face Owl", "Eurasian Eagle Owl", "Margay", "Penguin", "Silver Fox", "Ezo Red Fox", "Campo Flicker", "Gray Wolf", "Reticulated Giraffe", "Golden Snub-nosed Monkey", "Brown Bear", "African Wild Dog"];
 
-var search;
+var search = "";
 var count;
 
 function buttons() {
@@ -19,17 +19,17 @@ function buttons() {
 function getImages(response) {
     for(var i = 0; i < response.data.length; i++) {
         var imgUrl = response.data[i].images.fixed_height_still.url;
-        var imgDisplay = $("<div class='display'>");
+        var imgDisplay = $(`<div class="display">`);
         var rating = response.data[i].rating;
-        imgDisplay.append("<div>Rating: " + rating + "</div>");
-        imgDisplay.append("<img src = " + imgUrl + ">");
+        imgDisplay.append(`<div>Rating: "${rating}"</div>`);
+        imgDisplay.append(`<img src = "${imgUrl}">`);
         $(".images").append(imgDisplay);
     }
 
 }
 
 function doAjax(searchTerm) {
-    queryUrl = "http://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=Yo0rOAAf2vBTMa0CxQhiUqlwxPM62uBQ&limit=" + count;
+    queryUrl = `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=Yo0rOAAf2vBTMa0CxQhiUqlwxPM62uBQ&limit=${count}`;
     $.ajax({
         url: queryUrl,
         method: "GET"
@@ -48,9 +48,10 @@ $("body").on("click", ".animal-button", function () {
 });
 
 $("body").on("click", "#add-button", function () {
-    count += 10;
-    doAjax(search);
-    console.log(count);
+    if(search !== "") {
+        count += 10;
+        doAjax(search);
+    }
 });
 
 $("body").on("click", "img", function() {
