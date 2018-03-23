@@ -1,0 +1,16 @@
+body {
+    background-color: lightgray;
+}
+button {
+    margin: 5px;
+}
+
+.display {
+    float: left;
+    margin: 10px;
+    font-weight: bold;
+}
+
+#input-form {
+    margin: 10px;
+}
