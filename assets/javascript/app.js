@@ -29,7 +29,7 @@ function getImages(response) {
 }
 
 function doAjax(searchTerm) {
-    queryUrl = `http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=Yo0rOAAf2vBTMa0CxQhiUqlwxPM62uBQ&limit=${count}`;
+    queryUrl = `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=Yo0rOAAf2vBTMa0CxQhiUqlwxPM62uBQ&limit=${count}`;
     $.ajax({
         url: queryUrl,
         method: "GET"
